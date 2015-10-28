@@ -1,10 +1,9 @@
 class Factory
 
   def self.new *args, &block
-    if args[0].is_a?(String)
-      class_name = args.shift
-      p class_name
-    end
+    # if args[0].is_a?(String)
+    #   class_name = args.shift
+    # end
     my_class = Class.new do 
       @@members = args
 
@@ -64,7 +63,7 @@ class Factory
 
     end
 
-    const_set(class_name, my_class) if class_name
+    # self.const_set(class_name, my_class) if class_name
 
     my_class
 

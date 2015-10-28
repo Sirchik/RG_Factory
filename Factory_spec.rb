@@ -7,10 +7,11 @@ describe Factory do
   joeS = CustomerS.new('Joe Smith', '123 Maple, Anytown NC', 12345)
   joeF = CustomerF.new('Joe Smith', '123 Maple, Anytown NC', 12345)
   Factory.new("CustomerString", :name, :address, :zip)
+  # p constants
 
-  it 'new CustomerString' do 
-    expect(CustomerString.inspect).to eq 'CustomerString'
-  end
+  # it 'new CustomerString' do 
+  #   expect(CustomerString.inspect).to eq 'CustomerString'
+  # end
 
   it 'new Customer' do 
     expect(CustomerF.inspect).to eq 'CustomerF'
