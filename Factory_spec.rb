@@ -2,16 +2,42 @@ require_relative 'Factory'
 
 describe Factory do
 
+  # p Struct.instance_methods false
+  # p Factory.instance_methods false
+  # p Struct.inspect
+  # p Factory.inspect
   # CustomerS = Struct.new(:name, :address, :zip)
+  # CustomerS1 = Struct.new(:name, :address, :zip)
+
+  # p CustomerS.instance_methods false
+  # # p CustomerS.send :members
   # CustomerF = Factory.new(:name, :address, :zip)
+  # p CustomerF.instance_methods false
+  # p CustomerS.inspect
   # joeS = CustomerS.new('Joe Smith', '123 Maple, Anytown NC', 12345)
+  # p joeS.hash
+  # joeS1 = CustomerS.new('Joe Smith', '123 Maple, Anytown NC', 12345)
   # joeF = CustomerF.new('Joe Smith', '123 Maple, Anytown NC', 12345)
+  # p joeF.hash
+  # # p joeS.values_at(0,2)
+  # # p joeF.values_at(0,2)
+  # p joeS == 123
+  # p joeS.eql? joeS1
+  # joeF1 = CustomerF.new('Joe Smith', '123 Maple, Anytown NC', 12345)
+
+  # p joeS.select {|el| el.is_a?(String)}
+  # p joeF.select {|el| el.is_a?(String)}
+  # p joeF == joeF1
+  # p joeF.class
+  # p CustomerF.superclass
   # Struct.new("CustomerStringS", :name, :address, :zip)
+  # Factory.new("CustomerString", :name, :address, :zip)
   # p Struct::constants
   # p Factory::constants
+  # p constants
 
   context 'Customer from string' do
-    xit 'new CustomerString' do 
+    it 'new CustomerString' do 
       Factory.new("CustomerString", :name, :address, :zip)
       expect(Factory::CustomerString.inspect).to eq 'Factory::CustomerString'
     end
@@ -36,6 +62,10 @@ describe Factory do
       expect(CustomerF.class).to eq Class
     end
 
+    it 'Customer Class' do 
+      expect(CustomerF.superclass).to eq Factory
+    end
+
     it 'Customer members' do 
       expect(CustomerF.members).to eq [:name, :address, :zip]
     end
@@ -44,39 +74,38 @@ describe Factory do
       expect(@joeF.members).to eq [:name, :address, :zip]
     end
 
-    xit 'joe class' do 
+    it 'joe class' do 
       expect(@joeF.class).to eq CustomerF
     end
 
-    xit 'get joe.name' do 
+    it 'get joe.name' do 
       expect(@joeF.name).to eq 'Joe Smith'
     end
 
-    xit 'joe[:address]' do 
+    it 'joe[:address]' do 
       expect(@joeF[:address]).to eq '123 Maple, Anytown NC'
     end
 
-    xit 'joe[2]' do 
+    it 'joe[2]' do 
       expect(@joeF[2]).to eq 12345
     end
 
-    xit 'joe.name = ' do 
+    it 'joe.name = ' do 
       @joeF.name = 'Joe Smith jun'
       expect(@joeF.name).to eq 'Joe Smith jun'
     end
 
-    xit 'joe[:address] = ' do 
-      puts @joeF.name
+    it 'joe[:address] = ' do 
       @joeF[:address] = '321 Maple, Anytown NC'
       expect(@joeF[:address]).to eq '321 Maple, Anytown NC'
     end
 
-    xit 'joe[2] = ' do 
+    it 'joe[2] = ' do 
       @joeF[2] = 54321
       expect(@joeF[2]).to eq 54321
     end
 
-    xit 'joe[CustomerF]' do 
+    it 'joe[CustomerF]' do 
       expect {
         @joeF[CustomerF]
       }.to raise_error(TypeError)
@@ -85,7 +114,7 @@ describe Factory do
 
   end
 
-  xit 'Customer with block' do
+  it 'Customer with block' do
     CustomerFb = Factory.new(:name, :address) do 
       def greeting
         "Hellow #{name}!"
